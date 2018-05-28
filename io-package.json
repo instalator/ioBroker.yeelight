@@ -1,26 +1,8 @@
 {
     "common": {
         "name": "yeelight",
-        "version": "0.6.0",
+        "version": "0.0.1",
         "news": {
-            "0.6.0": {
-                "en": "Support of admin3",
-                "de": "Unterstützung von admin3",
-                "ru": "Поддержка admin3",
-                "pt": "Suporte de admin3",
-                "nl": "Ondersteuning van admin3",
-                "fr": "Support de admin3",
-                "it": "Supporto di admin3",
-                "es": "Soporte de admin3"
-            },
-            "0.5.0": {
-                "en": "beta version",
-                "de": "Betaversion",
-                "ru": "Бета версия",
-                "pt": "Versão beta",
-                "fr": "Version bêta",
-                "nl": "Beta versie"
-            },
             "0.0.1": {
                 "en": "initial adapter",
                 "de": "Initiale Version",
@@ -52,7 +34,7 @@
             "es": "Adaptador de plantilla ioBroker"
         },
         "authors": [
-            "my Name <my@email.com>"
+            "instalator <vvvalt@mail.ru>"
         ],
         "docs": {
             "en": "docs/en/admin.md",
@@ -67,21 +49,16 @@
         "platform": "Javascript/Node.js",
         "mode": "daemon",
         "icon": "yeelight.png",
-        "materialize": true,
+        "materialize": false,
+        "messagebox": true,
         "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.yeelight/master/admin/yeelight.png",
+        "extIcon": "https://raw.githubusercontent.com/instalator/ioBroker.yeelight/master/admin/yeelight.png",
         "keywords": ["yeelight", "vis", "GUI", "graphical", "scada"],
-        "readme": "https://github.com/ioBroker/ioBroker.yeelight/blob/master/README.md",
+        "readme": "https://github.com/instalator/ioBroker.yeelight/blob/master/README.md",
         "loglevel": "info",
-        "type": "general",
-        "restartAdapters": ["vis"]
+        "type": "lighting"
     },
-    "native": {
-        "test1": true,
-        "test2": 42,
-        "mySelect": "auto"
-    },
-    "objects": [
-
-    ]
+    "native": {},
+    "objects": [],
+    "instanceObjects": []
 }
