@@ -206,7 +206,7 @@ function main() {
         adapter.log.debug('Founding bulb{ id: ' + bulb.getId() + ', name: ' + bulb.name + ', model: ' + bulb.model + ', supports: ' + bulb.supports + '}');
 
         bulb.socket.on("error", function(ex){
-            adapter.log.error('Error lamp - ' + ex);
+            adapter.log.error('Error light - ' + ex);
             yeelight.refresh();
         });
 
@@ -215,7 +215,7 @@ function main() {
         });
 
         bulb.on("error", function(id, ex){
-            adapter.log.error('Error lamp - ' + ex);
+            adapter.log.error('Error light - ' + ex);
             yeelight.refresh();
         });
 
@@ -340,13 +340,6 @@ function main() {
             "music_on"
         );
     });
-
-    /*setInterval(function(){
-        var list = yeelight.getYeelights();
-        if(list){
-            adapter.log.error('getYeelights - ' + list.length);
-        }
-    }, 10000);*/
 }
 
 function toBool(val){

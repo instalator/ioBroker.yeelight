@@ -1,9 +1,9 @@
 {
     "common": {
         "name": "yeelight",
-        "version": "0.0.1",
+        "version": "0.0.2",
         "news": {
-            "0.0.1": {
+            "0.0.2": {
                 "en": "initial adapter",
                 "de": "Initiale Version",
                 "ru": "Первоначальный адаптер",
@@ -12,16 +12,16 @@
                 "nl": "Eerste release"
             }
         },
-		"title": "Javascript/Node.js based yeelight adapter",
+		"title": "yeelight adapter",
         "titleLang": {
-            "en": "Javascript/Node.js based yeelight adapter",
-            "de": "Javascript / Node.js basierte Vorlagenadapter",
-            "ru": "Адаптер шаблонов на основе Javascript / Node.js",
-            "pt": "Adaptador de modelo baseado em Javascript / Node.js",
-            "nl": "Javascript / Node.js gebaseerde sjabloonadapter",
-            "fr": "Javascript / Node.js basé adaptateur de modèle",
-            "it": "Adattatore modello basato su Javascript / Node.js",
-            "es": "Adaptador de plantilla basado en JavaScript / Node.js"
+            "en": "yeelight adapter",
+            "de": "yeelight adapter",
+            "ru": "yeelight adapter",
+            "pt": "yeelight adapter",
+            "nl": "yeelight adapter",
+            "fr": "yeelight adapter",
+            "it": "yeelight adapter",
+            "es": "yeelight adapter"
         },
         "desc": {
             "en": "ioBroker yeelight Adapter",

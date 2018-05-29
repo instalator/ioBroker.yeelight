@@ -1,6 +1,6 @@
 {
   "name": "iobroker.yeelight",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "ioBroker yeelight Adapter",
   "author": {
     "name": "instalator",
@@ -25,7 +25,7 @@
     "url": "https://github.com/instalator/ioBroker.yeelight"
   },
   "dependencies": {
-    "yeelight-wifi": "https://github.com/instalator/yeelight-wifi/tarball/master/"
+    "yeelight-wifi": "^2.3.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
