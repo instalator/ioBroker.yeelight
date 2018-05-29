@@ -12,26 +12,26 @@
                 "nl": "Eerste release"
             }
         },
-		"title": "yeelight adapter",
+		"title": "Xiaomi Yeelight LED adapter",
         "titleLang": {
-            "en": "yeelight adapter",
-            "de": "yeelight adapter",
-            "ru": "yeelight adapter",
-            "pt": "yeelight adapter",
-            "nl": "yeelight adapter",
-            "fr": "yeelight adapter",
-            "it": "yeelight adapter",
-            "es": "yeelight adapter"
+            "en": "Xiaomi Yeelight LED adapter",
+            "de": "Xiaomi Yeelight LED adapter",
+            "ru": "Xiaomi Yeelight LED adapter",
+            "pt": "Xiaomi Yeelight LED adapter",
+            "nl": "Xiaomi Yeelight LED adapter",
+            "fr": "Xiaomi Yeelight LED adapter",
+            "it": "Xiaomi Yeelight LED adapter",
+            "es": "Xiaomi Yeelight LED adapter"
         },
         "desc": {
-            "en": "ioBroker yeelight Adapter",
-            "de": "ioBroker Yeelight Adapter",
-            "ru": "ioBroker Yeelight драйвер как образец",
-            "pt": "Modelo de adaptador para o ioBroker",
-            "fr": "ioBroker adaptateur modèle",
-            "nl": "ioBroker Yeelight Adapter",
-            "it": "Adattatore modello ioBroker",
-            "es": "Adaptador de plantilla ioBroker"
+            "en": "This adapter controls your Xiaomi Yeelight lamp",
+            "de": "Dieser Adapter steuert Ihre Xiaomi Yeelight Lampe",
+            "ru": "Этот адаптер управляет вашей лампой Xiaomi Yeelight",
+            "pt": "Este adaptador controla sua lâmpada Xiaomi Yeelight",
+            "fr": "Cet adaptateur contrôle votre lampe Xiaomi Yeelight",
+            "nl": "Deze adapter regelt uw Xiaomi Yeelight-lamp",
+            "it": "Questo adattatore controlla la tua lampada Xiaomi Yeelight",
+            "es": "Este adaptador controla tu lámpara Xiaomi Yeelight"
         },
         "authors": [
             "instalator <vvvalt@mail.ru>"
@@ -50,10 +50,10 @@
         "mode": "daemon",
         "icon": "yeelight.png",
         "materialize": false,
-        "messagebox": true,
+        "messagebox": false,
         "enabled": true,
         "extIcon": "https://raw.githubusercontent.com/instalator/ioBroker.yeelight/master/admin/yeelight.png",
-        "keywords": ["yeelight", "vis", "GUI", "graphical", "scada"],
+        "keywords": ["yeelight", "LED", "light"],
         "readme": "https://github.com/instalator/ioBroker.yeelight/blob/master/README.md",
         "loglevel": "info",
         "type": "lighting"

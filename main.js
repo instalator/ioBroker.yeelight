@@ -135,7 +135,7 @@ adapter.on('stateChange', function (id, state) {
         } else {
             id = id.substr(0, id.lastIndexOf('.')+1);
             adapter.setState(id + 'info.connection', false, true);
-            adapter.log.error('Lamp id:' + light_id + ' not connected!');
+            adapter.log.error('Light id:' + light_id + ' not connected!');
             yeelight.refresh();
         }
     }
@@ -144,27 +144,6 @@ adapter.on('message', function (obj) {
     adapter.log.error('message' + JSON.stringify(obj));
     if (typeof obj === 'object' && obj.message) {
         if (obj.command === 'discovery') {
-            var timeout = setTimeout(function(){
-                if (obj.callback) adapter.sendTo(obj.from, obj.command, JSON.stringify('not found'), obj.callback);
-            }, 15000);
-
-            obj.data = [];
-            const yeelight = new YeelightSearch();
-            yeelight.refresh();
-            yeelight.on('found', function(bulb){
-                adapter.log.debug('Bulb found: {' + bulb.hostname + ':' + bulb.port + '}');
-
-                obj.data.push({
-                    host: bulb.hostname,
-                    port: bulb.port,
-                    id: bulb.getId(),
-                    name: bulb.name,
-                    model: bulb.model,
-                    supports: bulb.supports
-                });
-                clearTimeout(timeout);
-                if (obj.callback) adapter.sendTo(obj.from, obj.command, JSON.stringify(obj.data), obj.callback);
-            });
         }
     }
 });
@@ -175,22 +154,22 @@ adapter.on('ready', function () {
 
 var OBJ = {
     'connection': {common: {name: 'connected to bulb',                    role: 'indicator.connected', write: false, read: true, type: 'boolean'},                      type: 'state',  native: {} },
-    'ip':          {common: {name: 'ip',                                  role: 'state',               write: false, read: true, type: 'string' },                      type: 'state',  native: {} },
+    'ip':          {common: {name: 'IP adress light',                     role: 'state',               write: false, read: true, type: 'string' },                      type: 'state',  native: {} },
     'port':        {common: {name: 'port',                                role: 'state',               write: false, read: true, type: 'number' },                      type: 'state',  native: {} },
-    'id':          {common: {name: 'id',                                  role: 'state',               write: false, read: true, type: 'string' },                      type: 'state',  native: {} },
-    'power':       {common: {name: 'power',                               role: 'state',               write: true,  read: true, type: 'boolean' },                     type: 'state',  native: {} },
+    'id':          {common: {name: 'ID',                                  role: 'state',               write: false, read: true, type: 'string' },                      type: 'state',  native: {} },
+    'power':       {common: {name: 'Power',                               role: 'state',               write: true,  read: true, type: 'boolean' },                     type: 'state',  native: {} },
     'bright':      {common: {name: 'Brightness percentage',               role: 'level',               write: true,  read: true, type: 'number', min: 0,    max: 100},  type: 'state',  native: { } },
-    'rgb':         {common: {name: 'rgb',                                 role: 'state',               write: true,  read: true, type: 'string' },                      type: 'state',  native: {} },
-    'color_mode':  {common: {name: 'color_mode',                          role: 'state',               write: false,  read: true, type: 'number', states: '1:rgb mode;2:color temperature mode;3:hsv mode'},  type: 'state',  native: {} },
-    'hue':         {common: {name: 'hue',                                 role: 'level',               write: true,  read: true, type: 'number', min: 0,    max: 359 }, type: 'state',  native: {} },
+    'rgb':         {common: {name: 'RGB',                                 role: 'state',               write: true,  read: true, type: 'string' },                      type: 'state',  native: {} },
+    'color_mode':  {common: {name: 'Color_mode',                          role: 'state',               write: false, read: true, type: 'number', states: '1:rgb mode;2:color temperature mode;3:hsv mode'},  type: 'state',  native: {} },
+    'hue':         {common: {name: 'HUE',                                 role: 'level',               write: true,  read: true, type: 'number', min: 0,    max: 359 }, type: 'state',  native: {} },
     'sat':         {common: {name: 'Saturation',                          role: 'level',               write: true,  read: true, type: 'number', min: 0,    max: 100 }, type: 'state',  native: {} },
     'ct':          {common: {name: 'Color temperature',                   role: 'state',               write: true,  read: true, type: 'number', min: 1700, max: 6500}, type: 'state',  native: {} },
-    'flowing':     {common: {name: 'Color flow is running',               role: 'state',               write: true, read: true, type: 'boolean' },                      type: 'state',  native: {} },
+    'flowing':     {common: {name: 'Color flow is running',               role: 'state',               write: true,  read: true, type: 'boolean' },                     type: 'state',  native: {} },
     'delayoff':    {common: {name: 'The remaining time of a sleep timer', role: 'state',               write: true,  read: true, type: 'number' , min: 0, max: 60},     type: 'state',  native: {} },
     'flow_params': {common: {name: 'Current flow parameters',             role: 'state',               write: true,  read: true, type: 'string' },                      type: 'state',  native: {} },
     'music_on':    {common: {name: 'Music mode is on',                    role: 'state',               write: true,  read: true, type: 'boolean' },                     type: 'state',  native: {} },
     'music_url':   {common: {name: 'URL for music mode',                  role: 'state',               write: true,  read: true, type: 'string' },                      type: 'state',  native: {} },
-    'name':        {common: {name: 'name',                                role: 'state',               write: true,  read: true, type: 'string' },                      type: 'state',  native: {} },
+    'name':        {common: {name: 'Name',                                role: 'state',               write: true,  read: true, type: 'string' },                      type: 'state',  native: {} },
     'addCron':     {common: {name: 'Start a timer job on the smart LED',  role: 'state',               write: true,  read: true, type: 'string' },                      type: 'state',  native: {} }
 };
 
@@ -202,11 +181,11 @@ function main() {
     setInterval(function(){yeelight.refresh();}, 1000);
 
     yeelight.on('found', function(bulb){
-        adapter.log.debug('Bulb found: {' + bulb.hostname + ':' + bulb.port + '}');
-        adapter.log.debug('Founding bulb{ id: ' + bulb.getId() + ', name: ' + bulb.name + ', model: ' + bulb.model + ', supports: ' + bulb.supports + '}');
+        adapter.log.debug('Light found: {' + bulb.hostname + ':' + bulb.port + '}');
+        adapter.log.debug('Founding Light{ id: ' + bulb.getId() + ', name: ' + bulb.name + ', model: ' + bulb.model + ', supports: ' + bulb.supports + '}');
 
         bulb.socket.on("error", function(ex){
-            adapter.log.error('Error light - ' + ex);
+            adapter.log.error('Error yeelight - ' + ex);
             yeelight.refresh();
         });
 
@@ -215,7 +194,7 @@ function main() {
         });
 
         bulb.on("error", function(id, ex){
-            adapter.log.error('Error light - ' + ex);
+            adapter.log.error('Error yeelight - ' + ex);
             yeelight.refresh();
         });
 
@@ -364,7 +343,7 @@ function setinfoStates(bulb){
         type: 'channel',
         common: {
             name: bulb.model,
-            icon: '/admin/icons/' + bulb.model + '.png'
+            icon: '/icons/' + bulb.model + '.png'
         },
         native: {
             sid: bulb.id,
