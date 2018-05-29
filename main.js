@@ -132,6 +132,7 @@ adapter.on('stateChange', function (id, state) {
                     light.stopColorFlow();
                 }
             }
+            //TODO setDefaultState() setDefaultState():
         } else {
             id = id.substr(0, id.lastIndexOf('.')+1);
             adapter.setState(id + 'info.connection', false, true);
@@ -185,7 +186,7 @@ function main() {
         adapter.log.debug('Founding Light{ id: ' + bulb.getId() + ', name: ' + bulb.name + ', model: ' + bulb.model + ', supports: ' + bulb.supports + '}');
 
         bulb.socket.on("error", function(ex){
-            adapter.log.error('Error yeelight - ' + ex);
+            adapter.log.error('Error yeelight socket - ' + ex);
             yeelight.refresh();
         });
 
@@ -214,7 +215,6 @@ function main() {
                             val === 'on' ||
                             val === 'off' ||
                             property === 'flowing'||
-                            property === 'flowing' ||
                             property === 'music_on'
                         ){
                             val = toBool(val);
