@@ -25,11 +25,16 @@ adapter.on('stateChange', function (id, state) {
         var light_id = ids[2].substring(ids[2].indexOf("_") + 1);
         var cmd = ids[ids.length - 1].toString().toLowerCase();
         const light = yeelight.getYeelightById(light_id);
-        adapter.log.debug('stateChange ' + id + ' ' + JSON.stringify(state) + ', {cmd: ' + cmd + '}');
+        adapter.log.debug('stateChange ' + id + ' ' + JSON.stringify(state) + ', {light: ' + light + '}');
         if(light){
             if(cmd === 'power'){
                 if (val === true){
-                    light.turnOn();
+                    light.turnOn().then(() => {
+                        adapter.log.debug("toggled");
+                    })
+                        .catch(err => {
+                            adapter.log.debug(`received some error: ${err}`);
+                        });
                 } else {
                     light.turnOff();
                 }
@@ -128,8 +133,10 @@ adapter.on('stateChange', function (id, state) {
                 }
             }
         } else {
-            adapter.setState('info.connection', false, true);
-            ///addLight(lightdata: any)
+            id = id.substr(0, id.lastIndexOf('.')+1);
+            adapter.setState(id + 'info.connection', false, true);
+            adapter.log.error('Lamp id:' + light_id + ' not connected!');
+            yeelight.refresh();
         }
     }
 });
@@ -197,6 +204,21 @@ function main() {
     yeelight.on('found', function(bulb){
         adapter.log.debug('Bulb found: {' + bulb.hostname + ':' + bulb.port + '}');
         adapter.log.debug('Founding bulb{ id: ' + bulb.getId() + ', name: ' + bulb.name + ', model: ' + bulb.model + ', supports: ' + bulb.supports + '}');
+
+        bulb.socket.on("error", function(ex){
+            adapter.log.error('Error lamp - ' + ex);
+            yeelight.refresh();
+        });
+
+        bulb.socket.on("connected", function(){
+            adapter.log.debug('socket connected');
+        });
+
+        bulb.on("error", function(id, ex){
+            adapter.log.error('Error lamp - ' + ex);
+            yeelight.refresh();
+        });
+
         bulb.on("connected", function(){
             adapter.log.debug('yeelight connected: ' + bulb.hostname + ':' + bulb.port + '/ id: ' + bulb.id);
             setinfoStates(bulb);
@@ -250,36 +272,35 @@ function main() {
                 var support = bulb.supports.toString();
                 adapter.setObjectNotExists(sid + '.power', OBJ.power );
                 adapter.setObjectNotExists(sid + '.bright', OBJ.bright );
-                if(model === 'color') adapter.setObjectNotExists(sid + '.rgb', OBJ.rgb );
                 adapter.setObjectNotExists(sid + '.color_mode', OBJ.color_mode );
-                if(model === 'color') adapter.setObjectNotExists(sid + '.hue', OBJ.hue );
-                if(model === 'color') adapter.setObjectNotExists(sid + '.sat', OBJ.sat );
-                if (~support.indexOf('adjust_ct')) adapter.setObjectNotExists(sid + '.ct', OBJ.ct );
                 adapter.setObjectNotExists(sid + '.flowing', OBJ.flowing );
                 adapter.setObjectNotExists(sid + '.delayoff', OBJ.delayoff );
                 adapter.setObjectNotExists(sid + '.flow_params', OBJ.flow_params );
                 adapter.setObjectNotExists(sid + '.addCron', OBJ.addCron );
+                if (~support.indexOf('adjust_ct')){
+                    adapter.setObjectNotExists(sid + '.ct', OBJ.ct );
+                    adapter.setState(sid + '.ct', bulb.ct, true );
+                }
                 if (~support.indexOf('set_music')){
                     adapter.setObjectNotExists(sid + '.music_on',  OBJ.music_on );
                     adapter.setObjectNotExists(sid + '.music_url', OBJ.music_url );
-                }
-
-                adapter.setState(sid + '.power', toBool(bulb.power), true );
-                adapter.setState(sid + '.bright', bulb.bright, true );
-                if(model === 'color') adapter.setState(sid + '.rgb', dec2hex(bulb.rgb), true );
-                adapter.setState(sid + '.color_mode', bulb.color_mode, true );
-                //"COLOR_MODE": Current light mode. 1 means color mode, 2 means color temperature mode, 3 means HSV mode.
-                if(model === 'color') adapter.setState(sid + '.hue', bulb.hue, true );
-                if(model === 'color') adapter.setState(sid + '.sat', bulb.sat, true );
-                if (~support.indexOf('adjust_ct')) adapter.setState(sid + '.ct', bulb.ct, true );
-                adapter.setState(sid + '.flowing', toBool(bulb.flowing), true );
-                adapter.setState(sid + '.delayoff', bulb.delayoff, true );
-                adapter.setState(sid + '.flow_params', bulb.flow_params, true );
-                if (~support.indexOf('set_music')){
                     adapter.setState(sid + '.music_on', toBool(bulb.music_on), true );
                     adapter.setState(sid + '.music_url', '', true );
                 }
-
+                if(model === 'color'){
+                    adapter.setObjectNotExists(sid + '.hue', OBJ.hue );
+                    adapter.setObjectNotExists(sid + '.sat', OBJ.sat );
+                    adapter.setObjectNotExists(sid + '.rgb', OBJ.rgb );
+                    adapter.setState(sid + '.hue', bulb.hue, true );
+                    adapter.setState(sid + '.sat', bulb.sat, true );
+                    adapter.setState(sid + '.rgb', dec2hex(bulb.rgb), true );
+                }
+                adapter.setState(sid + '.power', toBool(bulb.power), true );
+                adapter.setState(sid + '.bright', bulb.bright, true );
+                adapter.setState(sid + '.color_mode', bulb.color_mode, true );
+                adapter.setState(sid + '.flowing', toBool(bulb.flowing), true );
+                adapter.setState(sid + '.delayoff', bulb.delayoff, true );
+                adapter.setState(sid + '.flow_params', bulb.flow_params, true );
                 /*
                  0 = "get_prop"
                  1 = "set_default"
@@ -304,9 +325,7 @@ function main() {
                  */
             }
         });
-        bulb.on("error", function(ex){
-            adapter.log.error('error - ' + ex);
-        });
+
         bulb.getValues(
             "power",
             "bright",
@@ -320,7 +339,6 @@ function main() {
             "flow_params",
             "music_on"
         );
-        //bulb.getCron(0);
     });
 
     /*setInterval(function(){
