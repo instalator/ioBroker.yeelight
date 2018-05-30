@@ -10,7 +10,7 @@
 
 ## Описание
 RU<br/>
-Это драйвер для работы ламп и светильников Yeelight в открытой системе автоматизации [ioBroker] (https://github.com/ioBroker/ioBroker) .
+Это драйвер для работы ламп и светильников Yeelight в открытой системе автоматизации [ioBroker](https://github.com/ioBroker/ioBroker) .
 Драйвер работает со всеми лампами и светильниками Yeelight управляемыми по wifi сети и поддерживающими открытый API производителя.
 Для работы драйвера не нужно подключение к сети Интернет и облаку производителя достаточно подключения по локальной сети.<br/>
 
@@ -23,7 +23,7 @@ RU<br/>
 + Yeelight Bedside Lamp wifi
 + Yeelight Lightstrip (Color)
 <br/>
-Для подключения к драйверу необходимо перевести светильники Yeelight в режим разработчика [(LAN CONTROL DEVELOPER MODE)]  (https://www.yeelight.com/en_US/developer) . Это делается через приложение для смартфона [Yeelight] (https://play.google.com/store/apps/details?id=com.yeelight.cherry) .<br/>
+Для подключения к драйверу необходимо перевести светильники Yeelight в режим разработчика [(LAN CONTROL DEVELOPER MODE)](https://www.yeelight.com/en_US/developer) . Это делается через приложение для смартфона [Yeelight](https://play.google.com/store/apps/details?id=com.yeelight.cherry) .<br/>
 <br/>
 У драйвера нет настроек. В результате установки драйвера в объектах ioBroker появляются все светильники Yeelight находящиеся в локальной сети.<br/>
 
