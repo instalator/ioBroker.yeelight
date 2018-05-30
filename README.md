@@ -9,7 +9,7 @@
 [![NPM](https://nodei.co/npm/iobroker.yeelight.png?downloads=true)](https://nodei.co/npm/iobroker.yeelight/)
 
 ## Описание
-RU
+RU<br/>
 Это драйвер для работы ламп и светильников Yeelight в открытой системе автоматизации ioBroker https://github.com/ioBroker/ioBroker
 Драйвер работает со всеми лампами и светильниками Yeelight управляемыми по wifi сети и поддерживающими открытый API производителя.
 Для работы драйвера не нужно подключение к сети Интернет и облаку производителя достаточно подключения по локальной сети.
