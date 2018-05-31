@@ -16,6 +16,7 @@
 
 #### Поддерживаются лампы и светильники:<br/>
 <br/>
+ 
 + Yeelight LED Bulb (White) 
 + Yeelight LED Bulb (Color)
 + Yeelight LED Ceiling Light YLXD01YL
