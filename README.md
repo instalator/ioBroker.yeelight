@@ -23,8 +23,16 @@
 + Yeelight Bedside Lamp wifi
 + Yeelight Lightstrip (Color)
 <br/>
-Для подключения к драйверу необходимо перевести светильники Yeelight в режим разработчика [LAN CONTROL DEVELOPER MODE](https://www.yeelight.com/en_US/developer) . Это делается через приложение для смартфона [Yeelight](https://play.google.com/store/apps/details?id=com.yeelight.cherry) .<br/>
+
+
+Для подключения к драйверу необходимо перевести светильники Yeelight в режим разработчика 
+[LAN CONTROL DEVELOPER MODE](https://www.yeelight.com/en_US/developer) .
+ 
+Это делается через приложение для смартфона [Yeelight](https://play.google.com/store/apps/details?id=com.yeelight.cherry) .<br/>
+
 У драйвера нет настроек. В результате установки драйвера в объектах ioBroker появляются все светильники Yeelight находящиеся в локальной сети.<br/>
+
+Дополнительная документация можно найти [здесь](https://github.com/instalator/ioBroker.yeelight/blob/master/docs/ru/template.md).<br/>
 
 ## Changelog
 
