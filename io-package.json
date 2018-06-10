@@ -1,8 +1,16 @@
 {
     "common": {
         "name": "yeelight",
-        "version": "0.0.2",
+        "version": "0.0.10",
         "news": {
+            "0.0.10": {
+                "en": "fix error\r\nchange dependencies repo",
+                "de": "fix error\r\nchange dependencies repo",
+                "ru": "fix error\r\nchange dependencies repo",
+                "pt": "fix error\r\nchange dependencies repo",
+                "fr": "fix error\r\nchange dependencies repo",
+                "nl": "fix error\r\nchange dependencies repo"
+            },
             "0.0.2": {
                 "en": "initial adapter",
                 "de": "Initiale Version",
