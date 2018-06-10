@@ -193,6 +193,7 @@ function main() {
         bulb.socket.on("connected", function(){
             adapter.log.debug('socket connected');
         });
+        
 
         bulb.on("error", function(id, ex){
             adapter.log.error('Error yeelight - ' + ex);
