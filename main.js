@@ -324,16 +324,17 @@ function main() {
 function setconnected(bulb){
     if(bulb){
         var sid = bulb.model + '_' + bulb.getId();
-        adapter.getState(
-            sid + '.info.connection', function (err, state){
-                if (err){
-                    adapter.log.debug('getState info.connection err: ' + err);
-                } else {
-                    if (!state.val){
+        adapter.getState(sid + '.info.connection', function (err, state){
+            if (err){
+                adapter.log.debug('getState info.connection err: ' + err);
+            } else {
+                if(state){
+                    if (state.val){
                         adapter.setState(sid + '.info.connection', true, true);
                     }
                 }
-            });
+            }
+        });
     }
 }
 
