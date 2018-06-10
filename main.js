@@ -179,30 +179,42 @@ function main() {
     adapter.subscribeStates('*');
 
     yeelight = new YeelightSearch();
-    setInterval(function(){yeelight.refresh();}, 1000);
+    setInterval(function(){yeelight.refresh();}, 10000);
+
+    process.on('unhandledRejection', error => {
+        adapter.log.error('--- unhandledRejection', error);
+    });
 
     yeelight.on('found', function(bulb){
         adapter.log.debug('Light found: {' + bulb.hostname + ':' + bulb.port + '}');
         adapter.log.debug('Founding Light{ id: ' + bulb.getId() + ', name: ' + bulb.name + ', model: ' + bulb.model + ', supports: ' + bulb.supports + '}');
-
-        bulb.socket.on("error", function(ex){
-            adapter.log.error('Error yeelight socket - ' + ex);
-            yeelight.refresh();
-        });
-
+        
         bulb.socket.on("connected", function(){
             adapter.log.debug('socket connected');
         });
         
-
-        bulb.on("error", function(id, ex){
-            adapter.log.error('Error yeelight - ' + ex);
-            yeelight.refresh();
+        bulb.on("error", function(id, ex, err){
+            adapter.log.error('Error socket yeelight id: ' + id + ': ' + ex + ': ' + err);
+            adapter.setState(bulb.model + '_' + id + '.info.connection', false, true);
         });
 
         bulb.on("connected", function(){
             adapter.log.debug('yeelight connected: ' + bulb.hostname + ':' + bulb.port + '/ id: ' + bulb.id);
-            setinfoStates(bulb);
+            setinfoStates(bulb, function (){
+                bulb.getValues(
+                    "power",
+                    "bright",
+                    "rgb",
+                    "color_mode",
+                    "hue",
+                    "sat",
+                    "ct",
+                    "flowing",
+                    "delayoff",
+                    "flow_params",
+                    "music_on"
+                );
+            });
         });
 
         bulb.on("notifcation", json => {
@@ -225,6 +237,7 @@ function main() {
                         }
 
                         var sid = bulb.model + '_' + bulb.getId();
+                        setconnected(bulb);
                         adapter.setState(sid + '.' + property , val, true );
                     }
                 }
@@ -305,21 +318,23 @@ function main() {
                  */
             }
         });
-
-        bulb.getValues(
-            "power",
-            "bright",
-            "rgb",
-            "color_mode",
-            "hue",
-            "sat",
-            "ct",
-            "flowing",
-            "delayoff",
-            "flow_params",
-            "music_on"
-        );
     });
+}
+
+function setconnected(bulb){
+    if(bulb){
+        var sid = bulb.model + '_' + bulb.getId();
+        adapter.getState(
+            sid + '.info.connection', function (err, state){
+                if (err){
+                    adapter.log.debug('getState info.connection err: ' + err);
+                } else {
+                    if (!state.val){
+                        adapter.setState(sid + '.info.connection', true, true);
+                    }
+                }
+            });
+    }
 }
 
 function toBool(val){
@@ -338,7 +353,7 @@ function hex2dec(hex) {
     return parseInt(hex.substring(1), 16);
 }
 
-function setinfoStates(bulb){
+function setinfoStates(bulb, cb){
     var sid = bulb.model + '_' + bulb.getId();
     adapter.setObjectNotExists(sid, {
         type: 'channel',
@@ -356,9 +371,10 @@ function setinfoStates(bulb){
     adapter.setObjectNotExists(sid + '.info.port', OBJ.port);
     adapter.setObjectNotExists(sid + '.info.id', OBJ.id);
     adapter.setObjectNotExists(sid + '.name', OBJ.name);
-    adapter.setState(sid + '.info.connection', true, true);
     adapter.setState(sid + '.info.ip', bulb.hostname, true);
     adapter.setState(sid + '.info.port', bulb.port, true);
     adapter.setState(sid + '.info.id', bulb.id, true);
     adapter.setState(sid + '.name', bulb.name, true);
+    setconnected(bulb);
+    if(cb) cb();
 }
