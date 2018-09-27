@@ -1,9 +1,9 @@
 {
     "common": {
         "name": "yeelight",
-        "version": "0.1.0",
-        "news": {s
-            "0.1.0": {
+        "version": "0.1.1",
+        "news": {
+            "0.1.1": {
                 "en": "fix error\r\nedit manual",
                 "de": "fix error\r\nedit manual",
                 "ru": "fix error\r\nedit manual",
