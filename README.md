@@ -36,6 +36,10 @@
 
 ## Changelog
 
+### 0.1.0 (2018-09-27)
+* (instalator) fix error 
+* (instalator) edit manual 
+
 ### 0.0.10 (2018-06-10)
 * (instalator) fix error
 * (instalator) change dependencies repo

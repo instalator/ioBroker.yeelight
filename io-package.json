@@ -1,8 +1,16 @@
 {
     "common": {
         "name": "yeelight",
-        "version": "0.0.10",
-        "news": {
+        "version": "0.1.0",
+        "news": {s
+            "0.1.0": {
+                "en": "fix error\r\nedit manual",
+                "de": "fix error\r\nedit manual",
+                "ru": "fix error\r\nedit manual",
+                "pt": "fix error\r\nedit manual",
+                "fr": "fix error\r\nedit manual",
+                "nl": "fix error\r\nedit manual"
+            },
             "0.0.10": {
                 "en": "fix error\r\nchange dependencies repo",
                 "de": "fix error\r\nchange dependencies repo",
