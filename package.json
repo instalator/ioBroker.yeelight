@@ -25,7 +25,7 @@
     "url": "https://github.com/instalator/ioBroker.yeelight"
   },
   "dependencies": {
-    "yeelight-wifi": "https://github.com/instalator/yeelight-wifi/tarball/master/"
+    "yeelight-wifi": "https://github.com/homeinstalator/yeelight-wifi/tarball/master/"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
